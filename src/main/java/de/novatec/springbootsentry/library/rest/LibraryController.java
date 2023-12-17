@@ -17,7 +17,7 @@ public class LibraryController {
     }
 
     @PostMapping("/addBook")
-    public Book addBook(@RequestBody Book book) {
+    public Book addBook(@RequestBody Book book) throws CustomException {
         if(book.getAuthor().isEmpty() || book.getTitle().isEmpty()){
             throw new CustomException("Title or Author Name is Missing!", 400);
         }
@@ -46,7 +46,7 @@ public class LibraryController {
     }
 
     @DeleteMapping("/deleteBook/{id}")
-    public void deleteBook(@PathVariable Long id) {
+    public void deleteBook(@PathVariable Long id) throws CustomException {
         if (bookRepository.existsById(id)) {
             bookRepository.deleteById(id);
         } else {
